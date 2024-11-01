@@ -1,0 +1,27 @@
+<!-- app/views/users/_form.html.erb -->
+<%= form_with(model: book, local: true) do |form| %> <!-- model: @book の代わりに book を使用 -->
+  <% if book.errors.any? %> <!-- @book.errors ではなく book.errors を使用 -->
+    <div id="error_explanation">
+      <h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2> <!-- メッセージを更新 -->
+      <ul>
+        <% book.errors.full_messages.each do |message| %> <!-- @book.errors.full_messages の代わりに book.errors.full_messages を使用 -->
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :title, "Title" %>
+    <%= form.text_field :title, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :body, "Opinion" %>
+    <%= form.text_area :body, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit "Create Book", class: 'btn btn-success' %>
+  </div>
+<% end %>
