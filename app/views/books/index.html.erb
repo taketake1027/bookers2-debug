@@ -22,7 +22,24 @@
 
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
-      <%= render 'index', books: @books %>
+      <table class='table'>
+        <% @books.each do |book| %>
+          <tr>
+            <td>
+              <%= link_to(book.user) do %>
+                <%= image_tag book.user.get_profile_image, size: "100x100" %><br>
+                <%= book.user.name %>
+              <% end %>
+            </td>
+            <td><%= link_to book.title, book %></td>
+            <td><%= book.body %></td>
+            <td>
+              <%= render 'favorites/like_button', book: book %>
+              <p class="d-inline">コメント数：<%= book.book_comments.count %></p> <!-- コメント数の表示を修正 -->
+            </td>
+          </tr>
+        <% end %>
+      </table>
     </div>
   </div>
 </div>

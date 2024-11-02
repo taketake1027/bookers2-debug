@@ -1,0 +1,12 @@
+<% like_count = book.favorites.count %> <!-- いいねの数を取得 -->
+<% if current_user.favorites.exists?(book_id: book.id) %>
+  <%= link_to book_favorite_path(book, current_user.favorites.find_by(book_id: book.id)), method: :delete, class: "btn btn-sm btn-transparent", data: { confirm: '本当にいいねを外しますか？' } do %>
+    <i class="fa fa-heart" style="color: red;"></i> <!-- いいねありの赤いハートアイコン -->
+    <span><%= like_count %></span> <!-- いいねの数 -->
+  <% end %>
+<% else %>
+  <%= link_to book_favorites_path(book), method: :post, class: "btn btn-sm btn-transparent" do %>
+    <i class="fa fa-heart" style="color: blue;"></i> <!-- いいねなしの青いハートアイコン -->
+    <span><%= like_count %></span> <!-- いいねの数 -->
+  <% end %>
+<% end %>

@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update]
 
   def show
-    @books = @user.books
+    @books = @user.books.includes(:book_comments)
     @book = Book.new
   end
 

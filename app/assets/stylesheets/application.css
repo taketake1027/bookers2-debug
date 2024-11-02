@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+.btn-warning,
+.btn-primary {
+  background-color: transparent !important; /* 背景色を透明に */
+  border: none !important; /* ボーダーを削除 */
+  box-shadow: none !important; /* シャドウの削除 */
+  padding: 0; /* パディングを調整 */
+}
+

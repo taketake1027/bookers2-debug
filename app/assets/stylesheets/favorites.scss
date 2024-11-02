@@ -1,0 +1,12 @@
+// Place all the styles related to the Favorites controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+.like-button {
+  background-color: transparent; /* 背景色を透明にする */
+  border: none; /* ボーダーをなくす */
+  padding: 0; /* 不要なスペースを削除する */
+  color: inherit; /* テキスト色は親要素に従う */
+  cursor: pointer; /* カーソルをポインタに変更 */
+  display: inline-flex; /* アイコンとテキストを横並びにする */
+  align-items: center; /* アイコンとテキストを縦方向で中央揃え */
+}
