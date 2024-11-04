@@ -1,0 +1,46 @@
+<h1>Books search for "<%= @query %>"</h1>
+
+<% if @results.present? %>
+  <table style="border-collapse: collapse; width: 100%;"> <!-- テーブル全体の幅を80%に設定 -->
+    <thead>
+      <tr>
+        <th style="border-bottom: 1px solid lightgray; padding: 10px;"></th>
+        <th style="border-bottom: 1px solid lightgray; padding: 10px;">Title</th>
+        <th style="border-bottom: 1px solid lightgray; padding: 10px;">Opinion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @target == 'User' %>
+        <% @results.each do |user| %>
+          <tr>
+            <td style="border-bottom: 1px solid lightgray; padding: 10px;">
+              <% if user.profile_image.attached? %>
+                <%= image_tag user.profile_image, size: "50x50" %>
+              <% else %>
+                <%= image_tag 'no_image.jpg', size: "50x50" %> <!-- デフォルト画像 -->
+              <% end %>
+            </td>
+            <td style="border-bottom: 1px solid lightgray; padding: 10px;"><%= link_to user.name, user_path(user) %></td>
+            <td style="border-bottom: 1px solid lightgray; padding: 10px;"><%= user.introduction %></td>
+          </tr>
+        <% end %>
+      <% elsif @target == 'Book' %>
+        <% @results.each do |book| %>
+          <tr>
+            <td style="border-bottom: 1px solid lightgray; padding: 10px;">
+              <% if book.image.attached? %>
+                <%= image_tag book.image, size: "50x50" %>
+              <% else %>
+                <%= image_tag 'no_image.jpg', size: "50x50" %> <!-- デフォルト画像 -->
+              <% end %>
+            </td>
+            <td style="border-bottom: 1px solid lightgray; padding: 10px;"><%= link_to book.title, book_path(book) %></td>
+            <td style="border-bottom: 1px solid lightgray; padding: 10px;"><%= book.body %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>該当する結果が見つかりませんでした。</p>
+<% end %>
