@@ -23,29 +23,20 @@
             <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %></td>
           <% else %>
             <td>
-              <%= render 'favorites/like_button', book: @book %>
+              <div id="favorite-button-<%= @book.id %>">
+                <%= render 'favorites/favorite_button', book: @book %>
+              </div>
               <span class="ml-2">コメント数: <%= @book.book_comments.count %></span>
             </td>
           <% end %>
         </tr>
       </table>
 
-      <div class="comment-list">
-        <% @book.book_comments.each do |comment| %>
-          <div class="comment-item">
-            <%= image_tag comment.user.get_profile_image, size: "50x50", class: "rounded-circle" %>
-            <p>
-              <strong><%= comment.user.name %>:</strong> <%= comment.body %>
-              <% if comment.user == current_user %>
-                <%= link_to 'destroy', book_book_comment_path(@book, comment), method: :delete, class: 'btn btn-link' %>
-              <% end %>
-            </p>
-          </div>
-        <% end %>
+      <div id="comments">
+        <%= render 'book_comments/comment_list', book: @book %> <!-- コメントリストをここに配置 -->
       </div>
 
-
-      <%= form_with(model: [@book, BookComment.new], local: true) do |form| %>
+      <%= form_with(model: [@book, BookComment.new], local: false) do |form| %>
         <div class="form-group">
           <%= form.label :body, "コメント" %>
           <%= form.text_area :body, class: "form-control", rows: 3 %>

@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]  # ここでユーザー確認を行う
-
+  before_action :authenticate_user!, only: [:search]
   def show
     @book = Book.find(params[:id])
     @user = @book.user

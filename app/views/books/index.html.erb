@@ -34,8 +34,11 @@
             <td><%= link_to book.title, book %></td>
             <td><%= book.body %></td>
             <td>
-              <%= render 'favorites/like_button', book: book %>
-              <p class="d-inline">コメント数：<%= book.book_comments.count %></p> <!-- コメント数の表示を修正 -->
+              <!-- ここを変更 -->
+              <div id="favorite-button-<%= book.id %>">
+                <%= render 'favorites/favorite_button', book: book %>
+              </div>
+              <p class="d-inline">コメント数：<%= book.book_comments.count %></p>
             </td>
           </tr>
         <% end %>
