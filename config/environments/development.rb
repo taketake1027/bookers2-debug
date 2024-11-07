@@ -26,7 +26,6 @@ Rails.application.configure do
     }
   else
     config.action_controller.perform_caching = false
-
     config.cache_store = :null_store
   end
 
@@ -34,8 +33,25 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true  # エラー発生時にエラーを表示する
 
+  # Use Gmail SMTP settings to send mail
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',    # GmailのSMTPサーバー
+    port:                 587,                 # SMTPポート
+    domain:               'gmail.com',         # ドメイン
+    user_name:            ENV['GMAIL_USERNAME'],  # Gmailのユーザー名 (環境変数)
+    password:             ENV['GMAIL_PASSWORD'],  # Gmailのパスワード (環境変数)
+    authentication:       'plain',             # 認証方法
+    enable_starttls_auto: true,                # TLS/SSLを有効化
+    open_timeout:         5,                   # 接続タイムアウト (秒)
+    read_timeout:         5                    # 読み取りタイムアウト (秒)
+  }
+
+  # メール送信のURL設定（ローカルホスト用）
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # メール送信時にエラーが発生した場合にエラーを表示する
   config.action_mailer.perform_caching = false
 
   # Print deprecation notices to the Rails logger.
@@ -54,8 +70,6 @@ Rails.application.configure do
   config.active_record.verbose_query_logs = true
 
   # Debug mode disables concatenation and preprocessing of assets.
-  # This option may cause significant delays in view rendering with a large
-  # number of complex assets.
   config.assets.debug = true
 
   # Suppress logger output for asset requests.
@@ -70,8 +84,10 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-  # config.hosts << "a8c9cb2b77b24968bf1f0967084f4a3f.vfs.cloud9.us-east-1.amazonaws.com"
+
+  # Allow all hosts (for development environment).
   config.hosts.clear
+
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 end

@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <h2>User info</h2>
+      <%= render 'users/info', user: current_user %>
+    </div>
+
+    <div class="col-md-8 offset-md-1">
+      <h1>Group Detail</h1>
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <th></th>
+            <th>グループ名</th>
+            <th>紹介文</th>
+            <th>メンバー</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <% if @group.image.attached? %>
+                <%= image_tag @group.image, size: "50x50", alt: @group.name %>
+              <% else %>
+                <%= image_tag "no_image.jpg", size: "50x50", alt: "Default Image" %>
+              <% end %>
+            </td>
+            <td><%= @group.name %></td>
+            <td><%= @group.introduction %></td>
+            <td><%= @group.members.map(&:name).join(', ') %></td>
+            <td>
+              <% unless @group.owner == current_user %>
+                <!-- グループオーナーでない場合 -->
+                <% if @group.members.include?(current_user) %>
+                  <!-- 参加している場合 -->
+                  <%= button_to 'Leave this group', leave_group_path(@group), method: :delete, class: "btn btn-danger" %>
+                <% else %>
+                  <!-- 参加していない場合 -->
+                  <%= button_to 'Join this group', join_group_path(@group), method: :post, class: "btn btn-primary" %>
+                <% end %>
+              <% end %>
+
+              <% if @group.owner == current_user %>
+                <%= link_to 'Edit', edit_group_path(@group), class: 'btn btn-success mr-4' %>
+                <%= link_to 'Notice an Event', notice_an_event_group_path(@group), class: 'btn btn-info' %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

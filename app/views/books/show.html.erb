@@ -12,7 +12,7 @@
         <tr>
           <td>
             <%= link_to(@book.user) do %>
-              <%= image_tag @book.user.get_profile_image, size: "100x100" %><br>
+              <%= image_tag @book.user.get_profile_image, size: "50x50" %><br>
               <%= @book.user.name %>
             <% end %>
           </td>
@@ -23,7 +23,7 @@
             <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %></td>
           <% else %>
             <td>
-              <div id="favorite-button-<%= @book.id %>">
+              <div id="favorite-button-<%= @book.id %>" class="d-inline-flex aligh-items-center">
                 <%= render 'favorites/favorite_button', book: @book %>
               </div>
               <span class="ml-2">コメント数: <%= @book.book_comments.count %></span>

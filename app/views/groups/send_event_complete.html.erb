@@ -1,0 +1,14 @@
+<!-- app/views/groups/send_event_complete.html.erb -->
+<div class="container text-center mt-5">
+  <h2>送信が完了しました</h2>
+
+  <div class="mt-4">
+    <p><strong>タイトル:</strong> <%= @title %></p>
+    <p><strong>内容:</strong></p>
+    <p><%= @body %></p>
+  </div>
+
+  <div class="mt-4">
+    <%= link_to '戻る', group_path(@group), class: "btn btn-primary" %>
+  </div>
+</div>
